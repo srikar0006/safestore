@@ -122,17 +122,6 @@ Archive creation, restore selection, and decryption use temporary files under `/
 - `Makefile`: build and cleanup targets.
 - `Presentations/`: project presentation decks.
 
-## Limitations
-
-- Backups are full copies or full archives. There is no incremental backup, deduplication, scheduling, remote storage, retention policy, or automatic pruning.
-- The store is local. A failure affecting the same disk can affect both originals and backups; maintain an independent copy for recovery.
-- Multiple backups of the same path within one second share a snapshot directory. Avoid concurrent backups and repeated backups within the same second.
-- External copy, move, archive, extraction, and deletion commands often have unchecked exit statuses. A success message or CSV record alone does not establish that the data was saved or restored correctly.
-- Paths are interpolated into shell commands using single quotes. Embedded single quotes are not escaped, and leading hyphens can be interpreted as command options in some operations. Use trusted, ordinary filenames; special characters also expose CSV parser limitations.
-- Restore considers at most 1,024 timestamp directories and has no transactional rollback. Plain-copy restore may fail if the destination parent directory is missing.
-- Symlinks and filesystem metadata follow `realpath`, `cp -r`, and tar behavior. Do not assume complete preservation of ownership, ACLs, extended attributes, or every special file type.
-- There is no automated test target or license file in this repository.
-
 ## Troubleshooting and verification
 
 If the build fails, check that a C compiler and Make are installed. If a runtime command is missing, check its availability with `command -v`, for example `command -v fzf` or `command -v lz4`.
